@@ -6,8 +6,8 @@ COPY pyproject.toml README.md LICENSE ./
 COPY paper_search_mcp/ paper_search_mcp/
 
 RUN pip install --no-cache-dir build \
-&& python -m build --wheel \
-&& pip install --no-cache-dir dist/*.whl
+    && python -m build --wheel \
+    && pip install --no-cache-dir dist/*.whl "mcp<2"
 
 FROM python:3.12-slim
 
