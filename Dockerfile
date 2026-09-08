@@ -6,8 +6,8 @@ COPY pyproject.toml README.md LICENSE ./
 COPY paper_search_mcp/ paper_search_mcp/
 
 RUN pip install --no-cache-dir build \
-    && python -m build --wheel \
-    && pip install --no-cache-dir dist/*.whl
+&& python -m build --wheel \
+&& pip install --no-cache-dir dist/*.whl
 
 FROM python:3.12-slim
 
@@ -25,10 +25,6 @@ ENV PAPER_SEARCH_MCP_GOOGLE_SCHOLAR_PROXY_URL=""
 ENV PAPER_SEARCH_MCP_IEEE_API_KEY=""
 ENV PAPER_SEARCH_MCP_ACM_API_KEY=""
 
-# Use the entry point script
-# Port expose karo
 EXPOSE 10000
 
-# Entry point HTTP server ke module par point karo
 CMD ["python", "-m", "paper_search_mcp.server"]
-```[cite: 1]
