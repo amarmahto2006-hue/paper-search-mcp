@@ -26,4 +26,9 @@ ENV PAPER_SEARCH_MCP_IEEE_API_KEY=""
 ENV PAPER_SEARCH_MCP_ACM_API_KEY=""
 
 # Use the entry point script
-CMD ["paper-search-mcp"]
+# Port expose karo
+EXPOSE 10000
+
+# Entry point HTTP server ke module par point karo
+CMD ["python", "-m", "paper_search_mcp.server"]
+```[cite: 1]
