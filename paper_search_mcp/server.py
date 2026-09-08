@@ -1377,22 +1377,23 @@ if acm_searcher is not None:
 
 
 def main():
-    import os
+import os
 
-    transport = os.getenv("MCP_TRANSPORT", "stdio")
+transport = os.getenv("MCP_TRANSPORT", "stdio")
 
-    if transport == "streamable-http":
-        host = os.getenv("MCP_HOST", "0.0.0.0")
-        port = int(os.getenv("PORT", os.getenv("MCP_PORT", "10000")))
+if transport in ("streamable-http", "sse", "http"):
+    host = os.getenv("MCP_HOST", "0.0.0.0")
+    port = int(os.getenv("PORT", os.getenv("MCP_PORT", "10000")))
 
-        mcp.run(
-            transport="streamable-http",
-            host=host,
-            port=port,
-        )
-    else:
-        mcp.run(transport="stdio")
+    # FastMCP v1 settings
+    if hasattr(mcp, "settings"):
+        mcp.settings.host = host
+        mcp.settings.port = port
+
+    mcp.run(transport="sse")
+else:
+    mcp.run(transport="stdio")
 
 
 if __name__ == "__main__":
-    main()
+main()
