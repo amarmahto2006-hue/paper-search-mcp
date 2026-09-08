@@ -1389,7 +1389,10 @@ def main():
             mcp.settings.host = host
             mcp.settings.port = port
 
-        mcp.run(transport="sse")
+        # Allow public Render host header
+        app = mcp.sse_app()
+        import uvicorn
+        uvicorn.run(app, host=host, port=port)
     else:
         mcp.run(transport="stdio")
 
