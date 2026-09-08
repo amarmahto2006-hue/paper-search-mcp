@@ -1388,11 +1388,9 @@ def main():
         if hasattr(mcp, "settings"):
             mcp.settings.host = host
             mcp.settings.port = port
+            mcp.settings.allowed_hosts = ["*"]
 
-        # Allow public Render host header
-        app = mcp.sse_app()
-        import uvicorn
-        uvicorn.run(app, host=host, port=port)
+        mcp.run(transport="sse")
     else:
         mcp.run(transport="stdio")
 
